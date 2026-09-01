@@ -1,7 +1,7 @@
 import { Client, IMessage } from '@stomp/stompjs';
 import { Message, MessageDeliveryStatus, TypingEvent } from '../types';
 
-const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || 'ws://localhost:8085/ws-direct';
+const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || 'wss://reyan-backend.onrender.com/ws-direct';
 
 class WebSocketService {
   private client: Client | null = null;

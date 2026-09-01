@@ -1,6 +1,6 @@
 import { Chat, Message, User, UserSettings } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8085';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://reyan-backend.onrender.com';
 
 export const formatMediaUrl = (url?: string): string | undefined => {
   if (!url) return undefined;
