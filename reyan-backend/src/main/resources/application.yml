@@ -1,0 +1,52 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: reyan-backend
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://db.hxppnfkfqtpdquqzxxof.supabase.co:5432/postgres}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:Jay824@8247882448}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
+
+  h2:
+    console:
+      enabled: false
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database-platform: ${SPRING_JPA_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+    properties:
+      hibernate:
+        format_sql: true
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:ReyanSecureSuperSecretKeyForJWTAuthTokenGeneration2026WithHighEntropyAndSecurity}
+    expiration-ms: 900000 # 15 minutes
+    refresh-expiration-ms: 604800000 # 7 days
+
+supabase:
+  url: ${SUPABASE_URL:https://hxppnfkfqtpdquqzxxof.supabase.co}
+  service-key: ${SUPABASE_SERVICE_KEY:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4cHBuZmtmcXRwZHF1cXp4eG9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgwNzg4ODEsImV4cCI6MjEwMzY1NDg4MX0.ce69UR-ZRhs_Iv7fuOnPI6YcRAZBxMeyFfpcCJIPVzg}
+  bucket:
+    avatars: avatars
+    chat-media: chat-media
+    documents: documents
+
+logging:
+  level:
+    root: INFO
+    com.reyan.chat: DEBUG
+    org.springframework.web.socket: INFO

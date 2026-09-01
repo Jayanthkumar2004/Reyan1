@@ -1,0 +1,21 @@
+{
+  "name": "Reyan Real-Time PWA Messenger",
+  "short_name": "Reyan",
+  "description": "Modern Progressive Web App for cross-platform messaging",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111b21",
+  "theme_color": "#00a884",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
