@@ -1,0 +1,8 @@
+{
+  "buildCommand": "cd reyan-pwa && npm run build",
+  "outputDirectory": "reyan-pwa/dist",
+  "installCommand": "cd reyan-pwa && npm install",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
