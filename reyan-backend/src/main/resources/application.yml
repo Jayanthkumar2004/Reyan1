@@ -8,8 +8,8 @@ spring:
     name: reyan-backend
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://db.hxppnfkfqtpdquqzxxof.supabase.co:5432/postgres}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres?sslmode=require}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres.hxppnfkfqtpdquqzxxof}
     password: ${SPRING_DATASOURCE_PASSWORD:Jay824@8247882448}
     driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
     hikari:
