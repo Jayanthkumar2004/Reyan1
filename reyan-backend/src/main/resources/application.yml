@@ -8,7 +8,7 @@ spring:
     name: reyan-backend
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres?sslmode=require}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://aws-0-ap-south-1.pooler.supabase.com:6543/postgres?sslmode=require&prepareThreshold=0}
     username: ${SPRING_DATASOURCE_USERNAME:postgres.hxppnfkfqtpdquqzxxof}
     password: ${SPRING_DATASOURCE_PASSWORD:Jay824@8247882448}
     driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
@@ -19,6 +19,8 @@ spring:
       idle-timeout: 600000
       max-lifetime: 1800000
       initialization-fail-timeout: -1
+      data-source-properties:
+        prepareThreshold: 0
 
   h2:
     console:
