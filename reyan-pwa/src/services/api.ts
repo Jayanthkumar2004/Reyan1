@@ -4,6 +4,9 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8085
 
 export const formatMediaUrl = (url?: string): string | undefined => {
   if (!url) return undefined;
+  if (url.startsWith('http://localhost:8085')) {
+    url = url.replace('http://localhost:8085', API_BASE_URL);
+  }
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
     return url;
   }
