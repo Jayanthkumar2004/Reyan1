@@ -3,6 +3,7 @@ package com.reyan.chat.config;
 import com.reyan.chat.security.CustomUserDetailsService;
 import com.reyan.chat.security.JwtAuthenticationFilter;
 import com.reyan.chat.security.JwtTokenProvider;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -69,6 +70,13 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .headers(headers -> headers.frameOptions(frame -> frame.disable()))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .exceptionHandling(ex -> ex
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"message\":\"Unauthorized or expired token\"}");
+                })
+            )
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/api/v1/auth/**", "/ws/**", "/ws-direct/**", "/uploads/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
