@@ -14,14 +14,29 @@ const getApiBaseUrl = (): string => {
 const API_BASE_URL = getApiBaseUrl();
 
 export const formatMediaUrl = (url?: string): string | undefined => {
-  if (!url) return undefined;
-  if (url.startsWith('http://localhost:8085')) {
-    url = url.replace('http://localhost:8085', API_BASE_URL);
+  if (!url || url.trim() === '') return undefined;
+  
+  let cleanUrl = url.trim();
+
+  // Replace any localhost or 127.0.0.1 host prefix in stored URLs
+  if (cleanUrl.includes('localhost:') || cleanUrl.includes('127.0.0.1:')) {
+    cleanUrl = cleanUrl.replace(/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?/, '');
   }
-  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
-    return url;
+
+  // If running on HTTPS (like Vercel) and URL starts with http:// (Mixed Content)
+  if (typeof window !== 'undefined' && window.location.protocol === 'https:' && cleanUrl.startsWith('http://')) {
+    if (cleanUrl.includes('onrender.com') || cleanUrl.includes('supabase.co')) {
+      cleanUrl = cleanUrl.replace('http://', 'https://');
+    } else if (!cleanUrl.startsWith('http://ui-avatars.com') && !cleanUrl.startsWith('http://pravatar.cc')) {
+      cleanUrl = cleanUrl.replace(/^http:\/\/[^\/]+/, '');
+    }
   }
-  return `${API_BASE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
+
+  if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://') || cleanUrl.startsWith('data:')) {
+    return cleanUrl;
+  }
+
+  return `${API_BASE_URL}${cleanUrl.startsWith('/') ? '' : '/'}${cleanUrl}`;
 };
 
 class ApiService {

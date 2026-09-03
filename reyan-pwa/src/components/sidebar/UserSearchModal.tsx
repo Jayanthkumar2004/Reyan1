@@ -154,7 +154,15 @@ export const UserSearchModal: React.FC<UserSearchModalProps> = ({ isOpen, onClos
                     }}
                   >
                     {user.avatarUrl ? (
-                      <img src={formatMediaUrl(user.avatarUrl)} alt={user.fullName} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
+                      <img 
+                        src={formatMediaUrl(user.avatarUrl)} 
+                        alt={user.fullName} 
+                        style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} 
+                        onError={(e) => {
+                          e.currentTarget.onerror = null;
+                          e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.fullName || 'User')}&background=00a884&color=fff`;
+                        }}
+                      />
                     ) : (
                       user.fullName.charAt(0).toUpperCase()
                     )}

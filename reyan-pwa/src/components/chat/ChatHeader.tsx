@@ -67,7 +67,15 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ chat, onBack }) => {
             }}
           >
             {avatar ? (
-              <img src={formatMediaUrl(avatar)} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img 
+                src={formatMediaUrl(avatar)} 
+                alt={title} 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(title || 'User')}&background=00a884&color=fff`;
+                }}
+              />
             ) : (
               title?.charAt(0).toUpperCase()
             )}
