@@ -42,7 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           // Connect STOMP WebSocket
           wsService.connect(token);
         } catch (e) {
-          console.error('Session restoration failed:', e);
+          // Stale or expired JWT token cleared automatically; user will re-login cleanly
           localStorage.removeItem('reyan_access_token');
           localStorage.removeItem('reyan_refresh_token');
           wsService.disconnect();
