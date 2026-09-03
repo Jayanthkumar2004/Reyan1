@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { formatMediaUrl } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import { useChat } from '../../context/ChatContext';
 import { api } from '../../services/api';
 import { X, Camera, Check, LogOut } from 'lucide-react';
 
@@ -11,6 +12,7 @@ interface ProfileDrawerProps {
 
 export const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose }) => {
   const { user, updateProfile, logout } = useAuth();
+  const { refreshChats } = useChat();
   const [fullName, setFullName] = useState(user?.fullName || '');
   const [about, setAbout] = useState(user?.about || '');
   const [phone, setPhone] = useState(user?.phone || '');
@@ -22,6 +24,7 @@ export const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose })
     setSaving(true);
     try {
       await updateProfile({ fullName, about, phone });
+      await refreshChats();
       onClose();
     } catch (e: any) {
       alert(e.message || 'Failed to update profile');
@@ -36,6 +39,7 @@ export const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose })
     try {
       const res = await api.uploadMedia(file, 'avatars');
       await updateProfile({ avatarUrl: res.mediaUrl });
+      await refreshChats();
     } catch (e: any) {
       alert(e.message || 'Avatar upload failed');
     }
