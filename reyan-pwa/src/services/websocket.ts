@@ -1,7 +1,18 @@
 import { Client, IMessage } from '@stomp/stompjs';
 import { Message, MessageDeliveryStatus, TypingEvent } from '../types';
 
-const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || 'wss://reyan-backend.onrender.com/ws-direct';
+const getWsBaseUrl = (): string => {
+  const envUrl = import.meta.env.VITE_WS_BASE_URL;
+  if (envUrl && !envUrl.includes('localhost') && (envUrl.startsWith('ws://') || envUrl.startsWith('wss://'))) {
+    return envUrl;
+  }
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    return 'wss://reyan-backend.onrender.com/ws-direct';
+  }
+  return envUrl || 'wss://reyan-backend.onrender.com/ws-direct';
+};
+
+const WS_BASE_URL = getWsBaseUrl();
 
 class WebSocketService {
   private client: Client | null = null;

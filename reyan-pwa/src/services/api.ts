@@ -1,6 +1,17 @@
 import { Chat, Message, User, UserSettings } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://reyan-backend.onrender.com';
+const getApiBaseUrl = (): string => {
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  if (envUrl && !envUrl.includes('localhost') && envUrl.startsWith('http')) {
+    return envUrl;
+  }
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    return 'https://reyan-backend.onrender.com';
+  }
+  return envUrl || 'https://reyan-backend.onrender.com';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 export const formatMediaUrl = (url?: string): string | undefined => {
   if (!url) return undefined;
